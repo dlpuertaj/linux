@@ -1,0 +1,22 @@
+systemctl status
+
+systemctl load-keys
+
+# modify file/etc/vconsole.conf
+
+KEYMAP=la-latin1
+
+# for X11 keyboard configuration
+
+Se puede utilizar la siguiente orden para ver la configuración vigente de XKB :
+
+$ setxkbmap -print -verbose 10´}
+
+# list keyboar layouts
+localectl list-x11-keymap-layouts
+
+#set X11 keyboard layout
+setxkbmap -layout latam
+
+# persist keybuard laoyout
+$ localectl --no-convert set-x11-keymap latam

@@ -1,0 +1,118 @@
+localectl list-keymaps | grep es
+
+loadkeys es
+
+ip a
+
+timedatectl set-ntp true
+
+pacman -Syyy
+
+pacman -S reflector
+
+reflector -c Colombia -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+
+pacman -Syyy
+
+lsblk
+
+fdisk /dev/sda
+
+n
+
+p
+
+default-enter
+
+default-enter
+
++4G  # swap partition is good to be double de firs sector
+
+t
+
+L
+
+82
+
+n
+
+p
+
+default-enter
+
+default-enter
+
+default-enter
+
+w  # escribir cambios
+
+mkswap /dev/sda1  # para crearlo
+
+swapon /dev/sda1  # para cativarlo
+
+mkfs.ext4 /dev/sda2
+
+mount /dev/sda2 /mnt
+
+pacstrap /mnt base linux linux-firmware  # intel-ucode if you have an intel processor 
+
+genfstab -U /mnt >> /mnt/etc/fstab
+
+cat /mnt/etc/fstab
+
+arch-chroot /mnt  # para entrar a root
+
+timedatectl list-timezones | grep Bogota  # buscamos zona horaria
+
+ln -sf /usr/share/zoneinfo/America/Bogota /etc/localtime  # enlazamos zona horaria
+
+hwclock --systohc  # enlazamos con reloj del sistema
+
+nano /etc/locale.gen #descomentamos la que queremos
+
+locale-gen  # generamos
+
+echo "LANG=es_CO.UTF-8" >> /etc/locale.conf
+
+echo "KEYMAP=es" >> /etc/vconsole.conf
+
+nano /etc/hostname  # escribimos el nombre de la máquina
+
+nano /etc/hosts  # escribimos lo siguiente
+#127.0.0.1	localhost
+#::1		localhost
+#127.0.1.1	archdlp.localdomain    archdlp
+
+passwd
+
+pacman -S grub networkmanager network-manager-applet wireless_tools wpa_supplicant 
+dialog os-prober mtools dosfstools base-devel linux-headers bluez vluez-utils cups git pulseaudio pulseaudio-bluetooth pulseaudio-alsa
+pulseaudio-equalizer pulseaudio-jack xdg-utils xdg-user-dirs openssl
+
+grub-install --target=i386-pc /dev/sda
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+systemctl enable NetworkManager
+
+systemctl enable NetworkManager
+
+systemctl enable org.cups.cupsd
+
+systemctl enable sshd
+
+useradd -mG wheel dlp
+
+passwd dlp
+
+EDITOR=nano visudo  # encontrar el grupo
+
+exit
+
+umount -a
+
+reboot
+
+sudo pacman-S nvidia nvidia-utils nvidia-settings
+
+git clone https://aur.archlinux.org/yay.git

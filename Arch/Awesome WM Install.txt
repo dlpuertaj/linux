@@ -1,0 +1,9 @@
+sudo pacman -S xorg xorg-server xorg-xinit xorg-utils xorg-server-utils
+
+sudo pacman -S awesome
+
+# copy xinitrc from /etc/X11/xinit/  to ~/.xinitrc
+# add "exec awesome" to .xinitrc
+
+#create directory .config/awesome
+#copy rc.lua from /etc/xdg/awesome to the created directory

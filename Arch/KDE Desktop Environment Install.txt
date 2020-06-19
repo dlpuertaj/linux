@@ -1,0 +1,7 @@
+$sudo pacman -Syy reflector # buscamos reflector
+$sudo reflector -c Colombia -a --sort rate --save /etc/pacman.d/mirrorlist
+$sudo pacman -Syyy
+$sudo pacman -S xorg sddm plasma kde-applications packagekit-qt5 chromium libreoffice
+$sudo systemctl enable sddm
+
+#  Now we have a desktop environment
