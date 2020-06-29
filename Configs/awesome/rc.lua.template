@@ -57,7 +57,7 @@ local function run_once(cmd_arr)
     end
 end
 
---run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -86,15 +86,15 @@ local themes = {
     "vertex",          -- 10
 }
 
-local chosen_theme = themes[3]
+local chosen_theme = themes[5]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "termite"
+local terminal     = "urxvtc"
 local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
-local browser      = os.getenv("BROWSER") or "qutebrowser"
+local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "slock"
 
 awful.util.terminal = terminal
@@ -544,16 +544,9 @@ globalkeys = my_table.join(
         end,
         {description = "show rofi", group = "launcher"}),
     --]]
-    
-    
     -- Prompt
-    awful.key({ modkey }, "r", function ()
-	    awful.util.spawn("dmenu_run") end,
-	    {description = "run dmenu", group = "louncher"}),
-
-    --awful.key({ modkey }, "b", function ()
-	   -- awful.util.spawn("qutebrowser") end,
-	    --{description = "open browser", group = "applications"}),
+    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
+              {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -782,9 +775,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
 -- }}}
-
-
---Autostart
-
-awful.spawn.with_shell("picom")
-awful.spawn.with_shell("nitrogen --restore")
