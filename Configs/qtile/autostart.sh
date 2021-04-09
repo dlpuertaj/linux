@@ -1,4 +1,4 @@
-#! /bin/bash 
-picom &
+#! /bin/bash
+picom --experimental-backends &
 nitrogen --restore &
-#urxvtd -q -o -f &
+flameshot &

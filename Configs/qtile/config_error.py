@@ -161,10 +161,10 @@ keys = [
              desc='Dmenu scrot script'
              ),
          ### My applications launched with SUPER + ALT + KEY
-         Key([mod], "Print",
-             lazy.spawn("flameshot gui"),
-             desc='Flameshot'
-             ),
+         #Key([mod, "mod1"], "b",
+         #    lazy.spawn("tabbed -r 2 surf -pe x '.surf/html/homepage.html'"),
+         #    desc='lynx browser'
+         #    ),
          #Key([mod, "mod1"], "l",
          #    lazy.spawn(myTerm+" -e lynx gopher://distro.tube"),
          #    desc='lynx browser'
@@ -217,8 +217,7 @@ keys = [
 
 group_names = [("WWW", {'layout': 'monadtall'}),
                ("DEV", {'layout': 'monadtall'}),
-               ("SYS", {'layout': 'monadtall'}),
-               ("FUN", {'layout': 'max'})
+               ("SYS", {'layout': 'monadtall'})
                ]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
@@ -228,7 +227,7 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 2,
+                "margin": 5,
                 "border_focus": "707070",
                 "border_normal": "1D2330"
                 }
@@ -258,7 +257,7 @@ layouts = [
          inactive_fg = "a0a0a0",
          padding_y = 5,
          section_top = 10,
-         panel_width =220
+         panel_width = 320
          ),
     layout.Floating(**layout_theme)
 ]
@@ -270,7 +269,6 @@ colors = [["#282c34", "#282c34"], # 0  panel background
           ["#8d62a9", "#8d62a9"], # 4  border line color for other tab and odd widgets
           ["#668bd7", "#668bd7"], # 5  color for the even widgets
           ["#e1acff", "#e1acff"], # 6  window name
-
           ["#3C403D", "#3C403D"], # 7  Brown Grey
           ["#707070", "#707070"], # 8  Madium Grey
           ["#3F3F3F", "#3F3F3F"], # 9  Dark Grey
@@ -285,8 +283,7 @@ colors = [["#282c34", "#282c34"], # 0  panel background
           ["#F3F3F3", "#F3F3F3"], # 18 Cloud
           ["#283747", "#283747"], # 19 Purble Tinted Grey
           ["#932432", "#932432"], # 20 Deep Red
-          ["#2C5F2D", "#2C5F2D"], # 21
-          ["#db0000", "#db0000"]] # 22 red border color for current tab DLP 
+          ["#2C5F2D", "#2C5F2D"]] # 21 
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -324,7 +321,7 @@ def init_widgets_list():
                        rounded = False,
                        highlight_color = colors[1],
                        highlight_method = "line",
-                       this_current_screen_border = colors[22],
+                       this_current_screen_border = colors[3],
                        this_screen_border = colors [4],
                        other_current_screen_border = colors[0],
                        other_screen_border = colors[0],
@@ -351,20 +348,7 @@ def init_widgets_list():
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[0],                                                    foreground = colors[8],
-                       padding = 0,                                                               fontsize = 37
-                       ),
-              widget.Net(
-                       interface = "wlp3s0f0",
-                       format = '{down} ↓↑ {up}',
-                       max_chars = 3,
-                       #foreground = colors[8],
-                       background = colors[8],
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text = '',
-                       background = colors[8],
+                       background = colors[0],
                        foreground = colors[9],
                        padding = 0,
                        fontsize = 37
@@ -396,7 +380,7 @@ def init_widgets_list():
                        background = colors[8],
                        fontsize = 14
                        ),
-              widget.CheckUpdates(
+              widget.Pacman(
                        update_interval = 1800,
                        foreground = colors[2],
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
@@ -428,16 +412,30 @@ def init_widgets_list():
                        background = colors[9],
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 5
-                       ),              
+                       ),
+             # widget.TextBox(
+              #         text='',
+              #         background = colors[5],
+              #         foreground = colors[4],
+              #         padding = 0,
+              #         fontsize = 37
+              #         ),
+             # widget.Net(
+             #          interface = "enp6s0",
+             #          format = '{down} ↓↑ {up}',
+             #          foreground = colors[2],
+             #          background = colors[4],
+             #          padding = 5
+             #          ),
               widget.TextBox(
                        text = '',
-                       background = colors[9],
+                       background = colors[7],
                        foreground = colors[8],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = " Vol:",
+                      text = " Vol:",
                        foreground = colors[2],
                        background = colors[8],
                        padding = 0
@@ -477,7 +475,7 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[10],
                        padding = 0,
-                       format = "%A, %B %d  [ %I:%M%p ]"
+                       format = "%A, %B %d  [ %H:%M ]"
                        ),
               widget.Sep(
                        linewidth = 0,
@@ -572,7 +570,7 @@ auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 @hook.subscribe.startup_once
-def autostart():
+def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
