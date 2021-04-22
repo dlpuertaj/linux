@@ -1,4 +1,5 @@
 #! /bin/bash
 picom --experimental-backends &
-nitrogen --restore &
+feh --recursive --bg-fill --randomize /usr/share/backgrounds/* &
+#nitrogen --restore &
 flameshot &

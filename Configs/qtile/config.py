@@ -5,9 +5,12 @@ import socket
 import subprocess
 from libqtile.config import KeyChord, Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import qtile, layout, bar, widget, hook
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
+
+from random import seed
+from random import randrange
 
 mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"                             # My terminal of choice
@@ -270,7 +273,6 @@ colors = [["#282c34", "#282c34"], # 0  panel background
           ["#8d62a9", "#8d62a9"], # 4  border line color for other tab and odd widgets
           ["#668bd7", "#668bd7"], # 5  color for the even widgets
           ["#e1acff", "#e1acff"], # 6  window name
-
           ["#3C403D", "#3C403D"], # 7  Brown Grey
           ["#707070", "#707070"], # 8  Madium Grey
           ["#3F3F3F", "#3F3F3F"], # 9  Dark Grey
@@ -286,7 +288,12 @@ colors = [["#282c34", "#282c34"], # 0  panel background
           ["#283747", "#283747"], # 19 Purble Tinted Grey
           ["#932432", "#932432"], # 20 Deep Red
           ["#2C5F2D", "#2C5F2D"], # 21
-          ["#db0000", "#db0000"]] # 22 red border color for current tab DLP 
+          ["#db0000", "#db0000"]] # 22 red border color for current tab DLP
+
+color_combos = [(colors[9],colors[20]),(colors[8],colors[9])]
+
+random_combo = randrange(0,2);
+print("Random combo = :" + str(random_combo))
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -295,9 +302,11 @@ widget_defaults = dict(
     font="Ubuntu Mono",
     fontsize = 12,
     padding = 2,
-    background=colors[2]
+    background=colors[8]
 )
 extension_defaults = widget_defaults.copy()
+
+#### WIDGETS MOUSE CALLBACKS FUNCTIONS
 
 def init_widgets_list():
     widgets_list = [
@@ -308,8 +317,10 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.Image(
-                       filename = "~/.config/qtile/icons/python.png",
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
+                       filename = "~/.config/qtile/icons/1650_apex_legends.png",
+                       scale = "True",
+                       background = colors[0],
+                       mouse_callbacks = {'Button1':lambda:qtile.cmd_spawn('dmenu_run')}
                        ),
               widget.GroupBox(
                        font = "Ubuntu Bold",
@@ -349,23 +360,25 @@ def init_widgets_list():
                        background = colors[0],
                        padding = 0
                        ),
+              #widget.TextBox(
+                #       text = '',
+                #       background = colors[0],
+                #       foreground = colors[8],
+                #       padding = 0,
+                #       fontsize = 37
+                #       ),
+             # widget.Net(
+              #         interface = "wlp3s0f0",
+               #        format = '{down} ↓↑ {up}',
+                #       max_chars = 3,
+                 #      #foreground = colors[8],
+                  #     background = colors[8],
+                   #    padding = 5
+                    #   ),
               widget.TextBox(
                        text = '',
-                       background = colors[0],                                                    foreground = colors[8],
-                       padding = 0,                                                               fontsize = 37
-                       ),
-              widget.Net(
-                       interface = "wlp3s0f0",
-                       format = '{down} ↓↑ {up}',
-                       max_chars = 3,
-                       #foreground = colors[8],
-                       background = colors[8],
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text = '',
-                       background = colors[8],
-                       foreground = colors[9],
+                       background = colors[0],
+                       foreground = color_combos[random_combo][1],#colors[9],
                        padding = 0,
                        fontsize = 37
                        ),
@@ -373,19 +386,19 @@ def init_widgets_list():
                        text = " 🌡",
                        padding = 2,
                        foreground = colors[2],
-                       background = colors[9],
+                       background = color_combos[random_combo][1],#colors[9],
                        fontsize = 11
                        ),
               widget.ThermalSensor(
                        foreground = colors[2],
-                       background = colors[9],
+                       background = color_combos[random_combo][1],#colors[9],
                        threshold = 90,
                        padding = 5
                        ),
               widget.TextBox(
                        text='',
-                       background = colors[9],
-                       foreground = colors[8],
+                       background = color_combos[random_combo][1],#colors[9],
+                       foreground = color_combos[random_combo][0],#colors[8],
                        padding = 0,
                        fontsize = 37
                        ),
@@ -393,101 +406,136 @@ def init_widgets_list():
                        text = " ⟳",
                        padding = 2,
                        foreground = colors[2],
-                       background = colors[8],
+                       background = color_combos[random_combo][0],#colors[8],
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                        fontsize = 14
                        ),
               widget.CheckUpdates(
                        update_interval = 1800,
+                       distro = "Arch_checkupdates",
+                       display_format = "{updates} Updates",
                        foreground = colors[2],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
-                       background = colors[8]
-                       ),
-              widget.TextBox(
-                       text = "Updates",
-                       padding = 5,
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
-                       foreground = colors[2],
-                       background = colors[8]
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       background = color_combos[random_combo][0],#colors[8]
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[8],
-                       foreground = colors[9],
+                       background = color_combos[random_combo][0],#colors[8],
+                       foreground = color_combos[random_combo][1],#colors[9],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = " 🖬",
+                       text = " 🖬  ",
                        foreground = colors[2],
-                       background = colors[9],
+                       background = color_combos[random_combo][1],#colors[9],
+                       mouse_callbacks = {'Button1':lambda:qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 0,
                        fontsize = 14
                        ),
               widget.Memory(
                        foreground = colors[2],
-                       background = colors[9],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e htop')},
+                       background = color_combos[random_combo][1],#colors[9],
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 5
-                       ),              
+                       ),
               widget.TextBox(
                        text = '',
-                       background = colors[9],
-                       foreground = colors[8],
+                       background = color_combos[random_combo][1],#colors[9],
+                       foreground = color_combos[random_combo][0],#colors[8],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.TextBox(
                        text = " Vol:",
                        foreground = colors[2],
-                       background = colors[8],
+                       background = color_combos[random_combo][0],#colors[8],
                        padding = 0
                        ),
               widget.Volume(
                        foreground = colors[2],
-                       background = colors[8],
+                       background = color_combos[random_combo][0],#colors[8],
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[8],
-                       foreground = colors[9],
+                       background = color_combos[random_combo][0],#colors[8],
+                       foreground = color_combos[random_combo][1],#colors[9],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.CurrentLayoutIcon(
                        custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
                        foreground = colors[0],
-                       background = colors[9],
+                       background = color_combos[random_combo][1],#colors[9],
                        padding = 0,
                        scale = 0.7
                        ),
               widget.CurrentLayout(
                        foreground = colors[2],
-                       background = colors[9],
+                       background = color_combos[random_combo][1],#colors[9],
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[9],
-                       foreground = colors[10],
+                       background = color_combos[random_combo][1],#colors[9],
+                       foreground = color_combos[random_combo][0],#colors[10],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.Clock(
                        foreground = colors[2],
-                       background = colors[10],
+                       background = color_combos[random_combo][0],#colors[10],
                        padding = 0,
                        format = "%A, %B %d  [ %I:%M%p ]"
                        ),
               widget.Sep(
                        linewidth = 0,
                        padding = 10,
-                       foreground = colors[0],
-                       background = colors[10]
+                       foreground = color_combos[random_combo][1],#colors[0],
+                       background = color_combos[random_combo][0],#colors[10]
+                       ),
+              widget.TextBox(
+                       text = '',
+                       background = color_combos[random_combo][0],#colors[9],
+                       foreground = color_combos[random_combo][1],#colors[10],
+                       padding = 0,
+                       fontsize = 37
                        ),
               widget.Systray(
-                       background = colors[10],
+                       background = color_combos[random_combo][1],#colors[10],
                        padding = 5
+                       ),
+              widget.TextBox(
+                       text = '',
+                       background = color_combos[random_combo][1],#colors[9],
+                       foreground = color_combos[random_combo][0],#colors[10],
+                       padding = 0,
+                       fontsize = 37
+                       ),
+             # widget.Image(
+             #          filename = "~/.config/qtile/icons/xfsm-lock.png",
+             #          scale = "False",
+             #          background = color_combos[random_combo][0],
+             #          mouse_callbacks = {'Button1':lambda:qtile.cmd.spawn('vlock')}
+             #          ),
+             # widget.Image(
+             #          filename = "~/.config/qtile/icons/xfsm-logout.png",
+             #          scale = "False",
+             #          background = color_combos[random_combo][0],
+             #          mouse_callbacks = {'Button1':lazy.shutdown()}
+             #          ),
+              widget.Image(
+                       filename = "~/.config/qtile/icons/xfsm-reboot.png",
+                       scale = "False",
+                       background = color_combos[random_combo][0],
+                       mouse_callbacks = {'Button1':lambda:qtile.cmd_spawn('reboot')}
+                       ),
+              widget.Image(
+                       filename = "~/.config/qtile/icons/system-shutdown-icon.png",
+                       scale = "False",
+                       background = color_combos[random_combo][0],#colors[10],
+                       mouse_callbacks = {'Button1':lambda:qtile.cmd_spawn('shutdown now')}
                        ),
               ]
     return widgets_list
@@ -501,8 +549,8 @@ def init_widgets_screen2():
     return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=color_combos[random_combo][1])),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=color_combos[random_combo][1]))]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -570,6 +618,13 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+
+
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/Documents/screen_conf.sh'])
 
 @hook.subscribe.startup_once
 def autostart():
