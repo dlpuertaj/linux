@@ -221,7 +221,8 @@ keys = [
 group_names = [("WWW", {'layout': 'monadtall'}),
                ("DEV", {'layout': 'monadtall'}),
                ("SYS", {'layout': 'monadtall'}),
-               ("FUN", {'layout': 'max'})
+               ("FUN", {'layout': 'max'}),
+               ("BVC", {'layout': 'monadtall'})
                ]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
@@ -321,6 +322,12 @@ def init_widgets_list():
                        scale = "True",
                        background = colors[0],
                        mouse_callbacks = {'Button1':lambda:qtile.cmd_spawn('dmenu_run')}
+                       ),
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[2],
+                       background = colors[0]
                        ),
               widget.GroupBox(
                        font = "Ubuntu Bold",
