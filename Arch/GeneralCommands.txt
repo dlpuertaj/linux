@@ -1,0 +1,66 @@
+1  xrandr
+2  arandr
+3  xrandrsudo pacman -Syu
+4  sudo pacman -Syu
+5  sudo reboot
+6  uname -r
+7  mhwd-kernel -li
+8  sudo pacman -S linux510-headers
+9  sudo reboot
+10  sudo pacman -S gcc
+11  sudo pacman -S make
+12  sudo reboot
+13  df -hT
+14  df -hT
+15  df -hT
+16  ls /run
+17  ls /run/media/
+18  ls /run/user/
+19  ls /run/media/
+20  df -hT
+21  sudo reboot
+22  ls -a /run/media/dlpuerta/
+23  cd /run/media/dlpuerta/
+24  cd VBox_GAs_6.1.24/
+25  ls
+26  sudo VBoxLinuxAdditions.run 
+27  sudo VBoxLinuxAdditions.run 
+28  sudo ./VBoxLinuxAdditions.run 
+29  sudo reboot
+30  sudo pacman -S git
+31  ls -a
+32  sudo mkdir DLPUERTA
+33  ls -a
+34  sudo git clone https://aur.archlinux.org/brave-bin.git
+35  cd brave-bin/
+36  makepkg -si
+37  sudo makepkg -si
+38  makepkg -si
+39  sudo makepkg -si
+40  cd ..
+41  sudo rm -f brave-bin/
+42  sudo rm -r brave-bin/
+43  ls -a
+44  sudo pacman -S firefox
+45  java -version
+46  sudo shutdown
+47  sudo shutdown now
+48  sudo pacman -sS java | grep jre
+49  sudo pacman -S jsr-openjdk-8
+50  sudo pacman -S jre-openjdk-8
+51  sudo pacman -S jre8-openjdk
+52  sudo pacman -sS java | grep jdk
+53  sudo pacman -S jdk8-openjdk
+54  java -version
+55  sudo pacman -S install python
+56  sudo pacman -S mariadb
+57   mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+58  sudo  mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+59  systemctl enable --now mariadb
+60  mysql_secure_installation
+61  sudo mysql_secure_installation
+62  mysql
+63  mysql -version
+64  mysql --version
+65  shutdown now
+66  history
