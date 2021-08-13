@@ -44,4 +44,12 @@
     - sudo systemctl restart httpd
     - sudo systemctl status httpd
     - sudo nano /srv/http/index.html #Change default index page
-
+- Enable snapd
+    - $sudo pacman -S snapd
+    - $sudo systemctl enable --now snapd.socket
+    - $sudo ln -s /var/lib/snapd/snap /snap
+- Install Eclipse
+    - Douenload version: https://www.eclipse.org/downloads/packages/
+    - $sudo tar -xvzf [eclpse douwnload tar.gz]
+    - create eclipse.desktop file
+    - $sudo desktop-file-install eclipse.desktop
