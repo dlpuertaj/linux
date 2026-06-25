@@ -1,0 +1,126 @@
+================================================================================
+                        NEOVIM KEYBINDINGS REFERENCE
+                           Leader key = SPACE
+================================================================================
+
+
+GENERAL
+-------
+  <Esc>               Clear search highlight
+  <Space>q            Open diagnostics quickfix list
+  <Esc><Esc>          Exit terminal mode (in terminal buffer)
+
+
+WINDOW NAVIGATION
+-----------------
+  <C-h>               Move focus to left window
+  <C-l>               Move focus to right window
+  <C-j>               Move focus to lower window
+  <C-k>               Move focus to upper window
+
+
+FILE EXPLORER (oil.nvim)
+------------------------
+  -                   Open file explorer (parent directory)
+  -                   (in oil) Go up one directory
+  <Enter>             Open file or directory
+  <C-^>               Go back to previous buffer
+
+
+FILE NAVIGATION (harpoon alternative)
+--------------------------------------
+  <Space>s.           Recent files picker (most-used harpoon replacement)
+  <Space><Space>      Open buffers picker
+  <C-^>               Toggle between two most recent buffers
+
+
+SEARCH (Telescope)
+------------------
+  <Space><Space>      Find open buffers
+  <Space>sf           Search files
+  <Space>sg           Search by grep (live)
+  <Space>sw           Search current word
+  <Space>s.           Search recent files
+  <Space>sd           Search diagnostics
+  <Space>sh           Search help tags
+  <Space>sk           Search keymaps
+  <Space>sc           Search commands
+  <Space>ss           Search Telescope pickers
+  <Space>sr           Resume last search
+  <Space>sn           Search Neovim config files
+  <Space>/            Fuzzy search in current buffer
+
+
+FORMATTING
+----------
+  <Space>f            Format current buffer
+
+
+LSP (active when a language server is attached)
+-----------------------------------------------
+  grn                 Rename symbol under cursor
+  gra                 Code action
+  grr                 Go to references
+  grd                 Go to definition
+  gri                 Go to implementation
+  grt                 Go to type definition
+  grD                 Go to declaration
+  gO                  Document symbols
+  gW                  Workspace symbols
+  K                   Hover documentation (built-in)
+  <C-s>               Signature help (insert mode)
+
+
+DIAGNOSTICS
+-----------
+  ]d                  Next diagnostic
+  [d                  Previous diagnostic
+  <Space>q            Open diagnostic list
+
+
+GIT (gitsigns)
+--------------
+  ]h                  Next hunk
+  [h                  Previous hunk
+  <Space>hs           Stage hunk
+  <Space>hu           Unstage hunk
+  <Space>hp           Preview hunk
+  <Space>hb           Blame line
+
+
+MARKDOWN (render-markdown.nvim)
+-------------------------------
+  <Space>tm           Toggle markdown rendering
+
+
+SURROUND (mini.surround)
+------------------------
+  sa                  Add surrounding (e.g. saiw" to surround word with quotes)
+  sd                  Delete surrounding
+  sr                  Replace surrounding
+  sf                  Find surrounding
+  sF                  Find surrounding (backwards)
+  sh                  Highlight surrounding
+  sn                  Update n_lines
+
+
+TEXT OBJECTS (mini.ai)
+----------------------
+  cia / dia           Change/delete inside argument
+  cif / dif           Change/delete inside function call
+  ci" / di"           Change/delete inside quotes
+  ca( / da(           Change/delete around parentheses
+
+
+COMPLETION (blink.cmp)
+----------------------
+  <Tab>               Select next item / confirm
+  <S-Tab>             Select previous item
+  <C-Space>           Open completion menu
+  <C-e>               Close completion menu
+
+
+================================================================================
+  Tip: Press <Space> and wait — which-key will show available bindings.
+  Tip: :checkhealth to diagnose plugin issues.
+================================================================================
